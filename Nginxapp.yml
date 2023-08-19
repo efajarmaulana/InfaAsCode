@@ -26,10 +26,4 @@
       tags:
         - start
 
-    - name: Allow Nginx through the firewall
-      firewalld:
-        service: http
-        state: enabled
-        permanent: yes
-      tags:
-        - firewall
+  
