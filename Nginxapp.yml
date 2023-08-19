@@ -1,6 +1,6 @@
 ---
 - name: Instal Nginx di CentOS 7
-  hosts: target_server  # Ganti dengan nama host atau grup host Anda
+  hosts: all  # Ganti dengan nama host atau grup host Anda
   become: yes  # Menggunakan privilege escalation untuk menjadi root
   tasks:
     - name: Update cache paket
