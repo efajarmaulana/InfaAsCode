@@ -1,5 +1,6 @@
 ---
 - name: Install Nginx and Configure app.conf
+- hosts: all
   become: yes
   tasks:
     - name: Install Nginx
