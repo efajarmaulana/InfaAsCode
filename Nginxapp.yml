@@ -1,29 +1,22 @@
 ---
-- name: Install Nginx on CentOS 7
+- name: Instal Apache HTTP Server (httpd) di CentOS
   hosts: all
   become: yes
-
   tasks:
-    - name: Update the package cache
+    - name: Perbarui cache paket
       yum:
-        name: "*"
+        name: '*'
         state: latest
-      tags:
-        - update
+      register: update_cache
 
-    - name: Install Nginx
+    - name: Instal httpd (Apache)
       yum:
-        name: nginx
+        name: httpd
         state: present
-      tags:
-        - install
+      when: "'httpd' not in update_cache.failed"
 
-    - name: Start Nginx service
+    - name: Mulai dan aktifkan layanan httpd
       service:
-        name: nginx
+        name: httpd
         state: started
         enabled: yes
-      tags:
-        - start
-
-  
