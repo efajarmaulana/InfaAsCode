@@ -1,22 +1,23 @@
 ---
-- name: Instal Apache HTTP Server (httpd) di CentOS
-  hosts: all
-  become: yes
+- name: Install Java on CentOS
+  hosts: all  # Ganti dengan nama host atau grup host yang sesuai
+  become: yes  # Untuk mendapatkan hak akses superuser (sudo)
+
   tasks:
-    - name: Perbarui cache paket
+    - name: Update package cache
       yum:
         name: '*'
         state: latest
-      register: update_cache
+      become: yes
 
-    - name: Instal httpd (Apache)
+    - name: Install Java 8
       yum:
-        name: httpd
+        name: java-1.8.0-openjdk
         state: present
-      when: update_cache.changed
+      become: yes
 
-    - name: Mulai dan aktifkan layanan httpd
-      service:
-        name: httpd
-        state: started
-        enabled: yes
+    - name: Install Java 11
+      yum:
+        name: java-11-openjdk
+        state: present
+      become: yes
