@@ -1,6 +1,5 @@
 ---
 - name: Install Nginx and Configure app.conf
-  hosts: your_centos_server
   become: yes
   tasks:
     - name: Install Nginx
