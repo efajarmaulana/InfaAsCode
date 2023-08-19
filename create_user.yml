@@ -3,4 +3,4 @@
   become: true
   tasks:
   - name: Creating the User
-    user: name=testuser password=testuser123 groups=ansible shell=/bin/bash
+    user: name=testuser password=F!nt3chit2020!@#$ groups=ansible shell=/bin/bash
