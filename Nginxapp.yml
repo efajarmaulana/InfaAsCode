@@ -1,21 +1,41 @@
-## Credits to John Lieske - https://www.ansible.com/blog/getting-started-writing-your-first-playbook
 ---
-- name: Install nginx
-  hosts: all
-  become: true
-
+- name: Install Nginx
+  hosts: web-servers
+  become: yes
   tasks:
-  - name: Add epel-release repo
-    yum:
-      name: epel-release
-      state: present
+    - name: Update package cache
+      yum:
+        name: '*'
+        state: latest
+      tags:
+        - update
 
-  - name: Install nginx
-    yum:
-      name: nginx
-      state: present
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+      tags:
+        - nginx
 
-  - name: Start NGiNX
-    service:
-      name: nginx
-      state: started
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+      tags:
+        - nginx
+
+    - name: Allow HTTP traffic through firewall
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+      tags:
+        - firewall
+
+    - name: Reload Firewall
+      firewalld:
+        permanent: yes
+        state: reloaded
+      tags:
+        - firewall
