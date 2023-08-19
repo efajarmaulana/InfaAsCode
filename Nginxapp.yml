@@ -1,8 +1,10 @@
+---
 - name: Update Yum Cache
   yum:
     name: '*'
     state: latest
   become: yes
+  
 - name: Add Nginx Repository
   yum_repository:
     name: nginx
@@ -12,8 +14,6 @@
     enabled: yes
     gpgkey: https://nginx.org/keys/nginx_signing.key
   become: yes
-
----
 - name: Install Nginx on CentOS 7
   hosts: all
   become: yes
