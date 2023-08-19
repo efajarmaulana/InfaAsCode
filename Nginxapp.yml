@@ -1,10 +1,35 @@
 ---
-- name: Instal wget di CentOS 7
-  hosts: all  # Ganti dengan nama atau alamat IP server target Anda
-  become: yes  # Untuk mendapatkan izin root
+- name: Install Nginx on CentOS 7
+  hosts: all
+  become: yes
 
   tasks:
-    - name: Instal wget
+    - name: Update the package cache
       yum:
-        name: wget
+        name: "*"
+        state: latest
+      tags:
+        - update
+
+    - name: Install Nginx
+      yum:
+        name: nginx
         state: present
+      tags:
+        - install
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+      tags:
+        - start
+
+    - name: Allow Nginx through the firewall
+      firewalld:
+        service: http
+        state: enabled
+        permanent: yes
+      tags:
+        - firewall
