@@ -1,28 +1,10 @@
 ---
-- name: Instal Nginx di CentOS 7
-  hosts: all  # Ganti dengan nama host atau grup host Anda
-  become: yes  # Menggunakan privilege escalation untuk menjadi root
+- name: Instal wget di CentOS 7
+  hosts: all  # Ganti dengan nama atau alamat IP server target Anda
+  become: yes  # Untuk mendapatkan izin root
+
   tasks:
-    - name: Update cache paket
+    - name: Instal wget
       yum:
-        name: '*'
-        state: latest
-      when: ansible_os_family == "RedHat"
-
-    - name: Instal Nginx
-      yum:
-        name: nginx
+        name: wget
         state: present
-      when: ansible_os_family == "RedHat"
-
-    - name: Start Nginx
-      systemd:
-        name: nginx
-        state: started
-      when: ansible_os_family == "RedHat"
-      
-    - name: Enable Nginx di boot
-      systemd:
-        name: nginx
-        enabled: yes
-      when: ansible_os_family == "RedHat"
