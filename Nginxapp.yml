@@ -1,23 +1,8 @@
 ---
-- name: Install Java on CentOS
-  hosts: all  # Ganti dengan nama host atau grup host yang sesuai
-  become: yes  # Untuk mendapatkan hak akses superuser (sudo)
-
-  tasks:
-    - name: Update package cache
-      yum:
-        name: '*'
-        state: latest
-      become: yes
-
-    - name: Install Java 8
-      yum:
-        name: java-1.8.0-openjdk
-        state: present
-      become: yes
-
-    - name: Install Java 11
-      yum:
-        name: java-11-openjdk
-        state: present
-      become: yes
+      - name: Install libselinux-python [ CentOS ]
+        yum: name=libselinux-python state=present  
+      - name: Install nginx for CentOS
+        yum: name=nginx state=latest
+      - name: start nginx
+        service: name=nginx state=started enabled=true
+    when: ansible_distribution == "CentOS"
