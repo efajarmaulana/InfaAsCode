@@ -13,7 +13,7 @@
       yum:
         name: httpd
         state: present
-      when: "'httpd' not in update_cache.failed"
+      when: update_cache.changed
 
     - name: Mulai dan aktifkan layanan httpd
       service:
