@@ -1,41 +1,22 @@
 ---
-- name: Install Nginx
+- name: Instal Nginx di CentOS 7
   hosts: web-servers
-  become: yes
+  become: yes  # Menggunakan privilege escalation untuk menjadi root
   tasks:
-    - name: Update package cache
-      yum:
-        name: '*'
-        state: latest
-      tags:
-        - update
-
-    - name: Install Nginx
+     - name: Instal Nginx
       yum:
         name: nginx
         state: present
-      tags:
-        - nginx
+     
 
-    - name: Start Nginx service
-      service:
+    - name: Start Nginx
+      systemd:
         name: nginx
         state: started
+      
+      
+    - name: Enable Nginx di boot
+      systemd:
+        name: nginx
         enabled: yes
-      tags:
-        - nginx
-
-    - name: Allow HTTP traffic through firewall
-      firewalld:
-        service: http
-        permanent: yes
-        state: enabled
-      tags:
-        - firewall
-
-    - name: Reload Firewall
-      firewalld:
-        permanent: yes
-        state: reloaded
-      tags:
-        - firewall
+        
