@@ -1,8 +1,26 @@
+## Credits to John Lieske - https://www.ansible.com/blog/getting-started-writing-your-first-playbook
 ---
-      - name: Install libselinux-python [ CentOS ]
-        yum: name=libselinux-python state=present  
-      - name: Install nginx for CentOS
-        yum: name=nginx state=latest
-      - name: start nginx
-        service: name=nginx state=started enabled=true
-    when: ansible_distribution == "CentOS"
+- name: Install nginx
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Add epel-release repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: Insert Index Page
+    template:
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
