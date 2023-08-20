@@ -1,9 +1,14 @@
 ---
-# This role installs HAProxy and configures it.
+- name: Install Java on CentOS
+  hosts: all  # Ganti dengan nama host atau grup host yang sesuai
+  become: yes  # Untuk mendapatkan hak akses superuser (sudo)
 
-- name: Download and install haproxy
-  yum: name=haproxy state=present
-
+  tasks:
+    - name: Download and install haproxy
+      yum:
+        name: haproxy
+        state: latest
+      become: yes
 - name: Configure the haproxy cnf file with hosts
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
   notify: restart haproxy
