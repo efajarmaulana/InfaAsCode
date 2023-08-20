@@ -1,21 +1,31 @@
-## Credits to John Lieske - https://www.ansible.com/blog/getting-started-writing-your-first-playbook
 ---
-- name: Install nginx
-  hosts: all
+- name: web configuration
+  hosts: all 
+  gather_facts: false
   become: true
 
   tasks:
-  - name: Add epel-release repo
-    yum:
-      name: epel-release
-      state: present
+# yum -y install libselinux-python 
+    - name: libselinux-python installation
+      yum:
+        name: libselinux-python
+        state: present
 
-  - name: Install nginx
-    yum:
-      name: nginx
-      state: present
+# yum -y install epel-release
+    - name: epel-release installation
+      yum:
+        name: epel-release
+        state: present
 
-  - name: Start NGiNX
-    service:
-      name: nginx
-      state: started
+# yum -y install nginx  
+    - name: nginx installation
+      yum:
+        name: nginx
+        state: present
+
+# systemctl start nginx && systemctl enable nginx 
+    - name: nginx start and enable
+      service:
+        name: nginx
+        state: started
+        enabled: true
