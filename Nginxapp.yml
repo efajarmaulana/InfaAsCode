@@ -1,12 +1,12 @@
 ---
-- hosts: all
-  become: true
-  tasks:
-    - name: Install the NGINX application on localhost
-      yum:
-        name: nginx
-        state: present
-    - name: Start the NGINX service
-      service:
-        name: nginx
-        state: started
+- name: Install nginx
+  yum:
+    name: nginx
+    state: present 
+  sudo: yes
+- name: Enable nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+  sudo: yes
