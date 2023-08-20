@@ -1,16 +1,14 @@
 ---
-- name: web configuration
-  hosts: all 
-  gather_facts: false
-  become: true# yum -y install httpd 
-    - name: httpd installation
-      yum:
-        name: httpd
-        state: present
+- name: Enable nginx repo.
+  template:
+    src: nginx.repo.j2
+    dest: /etc/yum.repos.d/nginx.repo
+    owner: root
+    group: "{{ root_group }}"
+    mode: 0644
+  when: nginx_yum_repo_enabled | bool
 
-# systemctl start httpd && systemctl enable httpd 
-    - name: httpd start and enable
-      service:
-        name: httpd
-        state: started
-        enabled: true
+- name: Ensure nginx is installed.
+  package:
+    name: "{{ nginx_package_name }}"
+    state: present
