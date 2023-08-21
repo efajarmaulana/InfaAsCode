@@ -1,25 +1,10 @@
 ---
-- name: Instal Nginx di CentOS
+- name: Restart Nginx on CentOS
   hosts: all
   become: yes
   tasks:
-    - name: Perbarui cache paket
-      yum:
-        name: '*'
-        state: latest
-      register: update_result
-      until: update_result is succeeded
-      retries: 5
-      delay: 10
-
-    - name: Instal Nginx
-      yum:
-        name: nginx
-        state: present
-
-    - name: Start Nginx Service on CentOS
+    - name: Restart Nginx Service on CentOS
       systemd:
         name: nginx
-        state: started
-        enabled: yes
+        state: restarted
       when: ansible_distribution == "CentOS"
