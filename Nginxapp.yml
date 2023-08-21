@@ -17,8 +17,9 @@
         name: nginx
         state: present
 
-    - name: Mulai layanan Nginx
-      service:
+    - name: Start Nginx Service on CentOS
+      systemd:
         name: nginx
         state: started
         enabled: yes
+      when: ansible_distribution == "CentOS"
