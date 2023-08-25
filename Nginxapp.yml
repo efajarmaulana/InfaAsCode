@@ -1,10 +1,21 @@
+## Credits to John Lieske - https://www.ansible.com/blog/getting-started-writing-your-first-playbook
 ---
-- name: Restart Nginx on CentOS
+- name: Install nginx
   hosts: all
-  become: yes
+  become: true
+
   tasks:
-    - name: Restart Nginx Service on CentOS
-      systemd:
-        name: nginx
-        state: restarted
-      when: ansible_distribution == "CentOS"
+  - name: Add epel-release repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
