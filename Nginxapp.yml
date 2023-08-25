@@ -4,12 +4,6 @@
   become: yes  # Untuk memungkinkan perintah sudo
 
   tasks:
-    - name: Update package cache
-      yum:
-        name: '*'
-        state: latest
-      become: yes
-
     - name: Install Nginx
       yum:
         name: nginx
