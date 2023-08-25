@@ -10,4 +10,4 @@
         state: latest
       become: yes
     - name: Start the haproxy service
-    service: name=haproxy state=started enabled=yes
+      service: name=haproxy state=started enabled=yes
