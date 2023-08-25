@@ -1,9 +1,4 @@
--
- name: update server
- hosts: all
- become: yes
- tasks:
- - name: update server
-   yum:
-     name: '*'
-     state: latest
+- hosts:
+    - all
+  tasks:
+    - action: ping
