@@ -1,13 +1,9 @@
----
-- name: Install Java on CentOS
-  hosts: all  # Ganti dengan nama host atau grup host yang sesuai
-  become: yes  # Untuk mendapatkan hak akses superuser (sudo)
-
-  tasks:
-    - name: Download and install haproxy
-      yum:
-        name: haproxy
-        state: latest
-      become: yes
-    - name: Start the haproxy service
-      service: name=haproxy state=started enabled=yes
+-
+ name: update server
+ hosts: all
+ become: yes
+ tasks:
+ - name: update server
+   yum:
+     name: '*'
+     state: latest
